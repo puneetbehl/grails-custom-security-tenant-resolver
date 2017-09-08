@@ -10,7 +10,7 @@ grails:
     gorm:
         multiTenancy:
             mode: DISCRIMINATOR # <1>
-            tenantResolverClass: demo.CurrentUserByJwtTenantResolver # <2>
+            tenantResolverClass: demo.CurrentUserTenantResolver # <2>
         reactor:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons

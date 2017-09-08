@@ -1,5 +1,5 @@
 //tag::tenantResolverImport[]
-import demo.CurrentUserByJwtTenantResolver
+import demo.CurrentUserTenantResolver
 //end::tenantResolverImport[]
 //tag::passwordEncodingImport[]
 import demo.UserPasswordEncoderListener
@@ -12,6 +12,6 @@ beans = {
     userPasswordEncoderListener(UserPasswordEncoderListener)
 //end::passwordEncodingBean[]
 //tag::tenantResolverBean[]
-    currentUserByJwtTenantResolver(CurrentUserByJwtTenantResolver)
+    CurrentUserTenantResolver(CurrentUserTenantResolver)
 //end::tenantResolverBean[]
 }
