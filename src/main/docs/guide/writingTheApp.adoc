@@ -1,1 +1,1 @@
-TODO: Complete the guide
+NOTE: This guide uses Multi-Tenancy DISCRIMINATOR mode. To learn more, read http://guides.grails.org/discriminator-per-tenant/guide/index.html[Single Database Multi-Tenancy Discriminator Column] Guide.

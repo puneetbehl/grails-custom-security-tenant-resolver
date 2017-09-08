@@ -5,8 +5,8 @@ import grails.gorm.services.Service
 import groovy.transform.CompileStatic
 
 @CompileStatic
-@Service(Plan)
-@CurrentTenant
+@Service(Plan) // <1>
+@CurrentTenant // <2>
 interface PlanService {
     List<Plan> findAll()
     Plan save(String title)

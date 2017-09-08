@@ -12,6 +12,6 @@ beans = {
     userPasswordEncoderListener(UserPasswordEncoderListener)
 //end::passwordEncodingBean[]
 //tag::tenantResolverBean[]
-    //currentUserByJwtTenantResolver(CurrentUserByJwtTenantResolver)
+    currentUserByJwtTenantResolver(CurrentUserByJwtTenantResolver)
 //end::tenantResolverBean[]
 }

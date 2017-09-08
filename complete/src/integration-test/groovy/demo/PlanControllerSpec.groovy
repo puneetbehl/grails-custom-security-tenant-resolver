@@ -32,7 +32,7 @@ class PlanControllerSpec extends Specification {
         given:
         User vector = userService.saveVillain('vector', 'secret')
         User gru = userService.saveVillain('gru', 'secret')
-        Tenants.withId("gru") {
+        Tenants.withId("gru") { // <1>
             planService.save('Steal the Moon')
         }
         Tenants.withId("vector") {
