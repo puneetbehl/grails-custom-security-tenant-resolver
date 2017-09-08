@@ -1,0 +1,5 @@
+[source,groovy]
+.src/integration-test/groovy/demo/PlanControllerSpec.groovy
+----
+include::{sourceDir}/src/integration-test/groovy/demo/PlanControllerSpec.groovy[]
+----

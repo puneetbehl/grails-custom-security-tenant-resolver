@@ -1,0 +1,24 @@
+[source,groovy]
+.src/main/groovy/demo/CurrentUserByJwtTenantResolver.groovy
+----
+include::{sourceDir}/src/main/groovy/demo/CurrentUserByJwtTenantResolver.groovy[]
+----
+
+Define the Custom Tenant Resolver as a bean:
+
+[source,groovy]
+.grails-app/conf/spring/resources.groovy
+----
+include::{sourceDir}/grails-app/conf/spring/resources.groovy[tag=tenantResolverImport]
+include::{sourceDir}/grails-app/conf/spring/resources.groovy[tag=beans]
+include::{sourceDir}/grails-app/conf/spring/resources.groovy[tag=tenantResolverBean]
+}
+----
+
+Create an Integration Test to test the custom Tenant Resolver.
+
+[source,groovy]
+.src/integration-test/groovy/demo/CurrentUserByJwtTenantResolverSpec.groovy
+----
+include::{sourceDir}/src/integration-test/groovy/demo/CurrentUserByJwtTenantResolverSpec.groovy[]
+----
