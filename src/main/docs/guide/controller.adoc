@@ -1,4 +1,4 @@
-Create a simple controller which collaborates with the previous service.
+Create a simple controller which uses with the previously defined `PlanService` service.
 
 [source,groovy]
 .grails-app/controllers/demo/PlanController.groovy
@@ -6,7 +6,7 @@ Create a simple controller which collaborates with the previous service.
 include::{sourceDir}/grails-app/controllers/demo/PlanController.groovy[]
 ----
 
-We render the `Plan`instances as JSON with the help of http://views.grails.org[JSON Views]
+We render the `Plan` instances as JSON with the help of http://views.grails.org[JSON Views]
 
 [source,groovy]
 .grails-app/views/plan/index.gson
