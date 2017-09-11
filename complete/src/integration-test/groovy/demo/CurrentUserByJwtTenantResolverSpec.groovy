@@ -7,13 +7,14 @@ import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletWebRequest
 import spock.lang.Specification
+import spock.lang.IgnoreIf
 
+@IgnoreIf( { System.getenv('TRAVIS') as boolean } )
 @Integration
 class CurrentUserByJwtTenantResolverSpec extends Specification {
 
     @Autowired
     CurrentUserByJwtTenantResolver currentUserTenantResolver
-
 
     void "Test HttpHeader resolver throws an exception outside a web request"() {
         when:

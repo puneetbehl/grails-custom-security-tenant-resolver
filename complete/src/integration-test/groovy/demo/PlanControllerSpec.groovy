@@ -4,7 +4,9 @@ import grails.gorm.multitenancy.Tenants
 import grails.plugins.rest.client.RestBuilder
 import grails.testing.mixin.integration.Integration
 import spock.lang.Specification
+import spock.lang.IgnoreIf
 
+@IgnoreIf( { System.getenv('TRAVIS') as boolean } )
 @Integration
 class PlanControllerSpec extends Specification {
     PlanService planService
