@@ -46,20 +46,19 @@ class CurrentUserByJwtTenantResolverSpec extends Specification {
 
         setup:
         MockHttpServletRequest request = new MockHttpServletRequest("GET", "/foo")
-        String jwtPart1 = 'eyJhbGciOiJIUzI1NiJ9.eyJwcmluY2lwYWwiOiJINHNJQUFBQUFBQUFBSlZTdjA4VVFSUitleHhDZ2xF'
-        String jwtPart2 = 'd2tjUUNHN0V6ZXdtV1Z3RkJBcGtjeHZNc01OSE03VDZXZ2RtWmRXYjJ1R3ZJVlZKUVFGUVNFbHBMXC9oT'
-	String jwtPart3 = 'nRcL0FPTUZMVFV0THhaT1BhMElVNjFlZlB0OSt2TjZRV01XZ012RThPRnRHRW04MFNvMEdaR3FNUmlsQn'
-        String jwtPart4 = 'ZoZW1GdTBjVG9Dc1J5QVd6UkJLNVBVSUdBUVVYRURoNnhMZDdoTmNsVlVsdHJiMkhrNmwwRGM5b2tONHd'
-        String jwtPart5 = 'iaHFlNG84MTJlTXNkYVlOXC9DWlRVd2ZjS2pLM0RGSThpblN2WDBHcXBtd21EOFRwTWxqT21vMjBcL2Vo'
-        String jwtPart6 = 'elJEU29udUxURDBERlV2QzB4WmpEQmM3ZXBTVldnZGZEdzJtenVoS3cxMGRVWmpHZmNXbkwzVDVLbTg5Yj'
-        String jwtPart7 = 'l2YmVwS01FbjJJVnFOd3ZvVUhmUFBUVDBQT0dpbHBKU0M2M3NiRXVsT2hZYndvc1RmM1wvbXk2K0RrMzZy'
-        String jwtPart8 = 'QWtDZHZMajduM0wrWkFINlB6NWNQaTJLRGlJSDAwUFdTMWk5bTVHYnFaTDVyVUd2XC9QdjQ5ZGVqaTczM0'
-        String jwtPart9 = 'k2VHNFYVwvK2Z4K3o4emZOOVJaMW1uSERuUjdhRWRIdVZQMDNrU1wvY1RUN1lRaTlzaWpTVFNDOUtPWXh2'
-        String jwtPart10 = 'SlVwaWlsczFXZzc2ZG5EXC96UnBiK3ZodWhiSDVsWVlmM090UWRtMUkrRUdSMnk4c1pKcld0WDkrK1BQZ'
-        String jwtPart11 = 'zJSOGlXWVhSRHBjNVV1MlRKYWlScDIwMG4wK1BaaWErbmUwWElRWVArZ3JPZUdRVkZBTUFBQT09Iiwic3'
-        String jwtPart12 = 'ViIjoidmVjdG9yIiwicm9sZXMiOlsiUk9MRV9WSUxMQUlOIl0sImlhdCI6MTUwNDc4MTEyNX0.cf5rGNrNolchQ3QyMsPB544fwzYGiihBkRF8KU6soxc'
-
-	String jwt = [jwtPart1, jwtPart2, jwtPart3, jwtPart4, jwtPart5, jwtPart6, jwtPart7, jwtPart8, jwtPart9, jwtPart10, jwtPart11, jwtPart12].join('')
+        String jwt = '''\
+eyJhbGciOiJIUzI1NiJ9.eyJwcmluY2lwYWwiOiJINHNJQUFBQUFBQUFBSlZTdjA4VVFSUitleHhDZ2xF\
+d2tjUUNHN0V6ZXdtV1Z3RkJBcGtjeHZNc01OSE03VDZXZ2RtWmRXYjJ1R3ZJVlZKUVFGUVNFbHBMXC9oT\
+nRcL0FPTUZMVFV0THhaT1BhMElVNjFlZlB0OSt2TjZRV01XZ012RThPRnRHRW04MFNvMEdaR3FNUmlsQn\
+ZoZW1GdTBjVG9Dc1J5QVd6UkJLNVBVSUdBUVVYRURoNnhMZDdoTmNsVlVsdHJiMkhrNmwwRGM5b2tONHd\
+iaHFlNG84MTJlTXNkYVlOXC9DWlRVd2ZjS2pLM0RGSThpblN2WDBHcXBtd21EOFRwTWxqT21vMjBcL2Vo\
+elJEU29udUxURDBERlV2QzB4WmpEQmM3ZXBTVldnZGZEdzJtenVoS3cxMGRVWmpHZmNXbkwzVDVLbTg5Yj\
+l2YmVwS01FbjJJVnFOd3ZvVUhmUFBUVDBQT0dpbHBKU0M2M3NiRXVsT2hZYndvc1RmM1wvbXk2K0RrMzZy\
+QWtDZHZMajduM0wrWkFINlB6NWNQaTJLRGlJSDAwUFdTMWk5bTVHYnFaTDVyVUd2XC9QdjQ5ZGVqaTczM0\
+k2VHNFYVwvK2Z4K3o4emZOOVJaMW1uSERuUjdhRWRIdVZQMDNrU1wvY1RUN1lRaTlzaWpTVFNDOUtPWXh2\
+SlVwaWlsczFXZzc2ZG5EXC96UnBiK3ZodWhiSDVsWVlmM090UWRtMUkrRUdSMnk4c1pKcld0WDkrK1BQZ\
+zJSOGlXWVhSRHBjNVV1MlRKYWlScDIwMG4wK1BaaWErbmUwWElRWVArZ3JPZUdRVkZBTUFBQT09Iiwic3\
+ViIjoidmVjdG9yIiwicm9sZXMiOlsiUk9MRV9WSUxMQUlOIl0sImlhdCI6MTUwNDc4MTEyNX0.cf5rGNrNolchQ3QyMsPB544fwzYGiihBkRF8KU6soxc'''
 
         request.addHeader('Authorization', "Bearer $jwt")
         RequestContextHolder.setRequestAttributes(new ServletWebRequest(request))
