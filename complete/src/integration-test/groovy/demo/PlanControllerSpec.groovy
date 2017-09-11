@@ -9,6 +9,7 @@ import spock.lang.Specification
 class PlanControllerSpec extends Specification {
     PlanService planService
     UserService userService
+    VillainService villainService
     RoleService roleService
 
     RestBuilder rest = new RestBuilder()
@@ -30,13 +31,13 @@ class PlanControllerSpec extends Specification {
 
     def "Plans for current logged user are retrieved"() {
         given:
-        User vector = userService.saveVillain('vector', 'secret')
-        User gru = userService.saveVillain('gru', 'secret')
+        User vector = villainService.saveVillain('vector', 'secret')
+        User gru = villainService.saveVillain('gru', 'secret')
         Tenants.withId("gru") { // <1>
             planService.save('Steal the Moon')
         }
         Tenants.withId("vector") {
-            planService.save('Steal the Pyramid')
+            planService.save('Steal a Pyramid')
         }
 
         when: 'login with the gru'
@@ -69,11 +70,17 @@ class PlanControllerSpec extends Specification {
 
         then:
         resp.status == 200
-        resp.json.toString() == '[{"title":"Steal the Pyramid"}]'
+        resp.json.toString() == '[{"title":"Steal a Pyramid"}]'
 
         cleanup:
+        Tenants.withId("gru") { // <1>
+            planService.deleteByTitle('Steal the Moon')
+        }
+        Tenants.withId("vector") {
+            planService.deleteByTitle('Steal the Pyramid')
+        }
         userService.deleteUser(gru)
         userService.deleteUser(vector)
-        roleService.delete(UserService.ROLE_VILLAIN)
+        roleService.delete(VillainService.ROLE_VILLAIN)
     }
 }

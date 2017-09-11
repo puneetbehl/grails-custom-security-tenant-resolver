@@ -6,7 +6,8 @@ gettingStarted:
   howto: How to complete the guide
 writingTheApp:
   title: Writing the Application
-  domain: Domain Class
+  configuration: Configure Multi-Tenancy
+  domain: Create Domain Class
   controller: Controller
   security: Wire up Security
   customresolver: Custom Tenant Resolver

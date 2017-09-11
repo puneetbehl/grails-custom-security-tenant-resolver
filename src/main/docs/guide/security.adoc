@@ -42,9 +42,13 @@ grails
 include::{sourceDir}/grails-app/conf/application.yml[tag=security]
 ----
 
+Create several http://gorm.grails.org/latest/hibernate/manual/index.html#dataServices[GORM Data Service] to work with the Domain Classes involed in the securization of our app.
 
-
-Create a service to handle User creation and deletion.
+[source,groovy]
+.grails-app/services/demo/RoleService.groovy
+----
+include::{sourceDir}/grails-app/services/demo/RoleService.groovy[]
+----
 
 [source,groovy]
 .grails-app/services/demo/UserService.groovy
@@ -52,11 +56,25 @@ Create a service to handle User creation and deletion.
 include::{sourceDir}/grails-app/services/demo/UserService.groovy[]
 ----
 
-Create a http://gorm.grails.org/latest/hibernate/manual/index.html#dataServices[Data Service] to handle role deletion.
+[source,groovy]
+.grails-app/services/demo/UserRoleService.groovy
+----
+include::{sourceDir}/grails-app/services/demo/UserRoleService.groovy[]
+----
 
+
+Create a service to handle User creation with a specific role.
 
 [source,groovy]
-.grails-app/services/demo/RoleService.groovy
+.grails-app/services/demo/AbstractUserWithRoleService.groovy
 ----
-include::{sourceDir}/grails-app/services/demo/RoleService.groovy[]
+include::{sourceDir}/grails-app/services/demo/AbstractUserWithRoleService.groovy[]
+----
+
+Create a service which extends the previous service:
+
+[source,groovy]
+.grails-app/services/demo/VillainService.groovy
+----
+include::{sourceDir}/grails-app/services/demo/VillainService.groovy[]
 ----

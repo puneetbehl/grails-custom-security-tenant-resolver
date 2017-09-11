@@ -10,4 +10,5 @@ import groovy.transform.CompileStatic
 interface PlanService {
     List<Plan> findAll()
     Plan save(String title)
+    void deleteByTitle(String title)
 }
