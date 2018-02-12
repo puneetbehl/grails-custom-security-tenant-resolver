@@ -2,10 +2,8 @@ package demo
 
 import grails.plugin.springsecurity.SpringSecurityService
 import org.grails.datastore.mapping.engine.event.AbstractPersistenceEvent
-import org.grails.datastore.mapping.engine.event.EventType
 import org.grails.datastore.mapping.engine.event.PreInsertEvent
 import org.grails.datastore.mapping.engine.event.PreUpdateEvent
-import org.hibernate.event.spi.PreDeleteEvent
 import org.springframework.beans.factory.annotation.Autowired
 import grails.events.annotation.gorm.Listener
 import groovy.transform.CompileStatic
@@ -18,19 +16,19 @@ class UserPasswordEncoderListener {
 
     @Listener(User)
     void onPreInsertEvent(PreInsertEvent event) {
-        encodeUserPasswordForEvent(event)
+        encodePasswordForEvent(event)
     }
 
     @Listener(User)
     void onPreUpdateEvent(PreUpdateEvent event) {
-        encodeUserPasswordForEvent(event)
+        encodePasswordForEvent(event)
     }
 
-    private void encodeUserPasswordForEvent(AbstractPersistenceEvent event) {
+    private void encodePasswordForEvent(AbstractPersistenceEvent event) {
         if (event.entityObject instanceof User) {
-            User u = (event.entityObject as User)
-            if (u.password && ((event instanceof  PreInsertEvent) || (event instanceof PreUpdateEvent && u.isDirty('password')))) {
-                event.getEntityAccess().setProperty("password", encodePassword(u.password))
+            User u = event.entityObject as User
+            if (u.password && ((event instanceof PreInsertEvent) || (event instanceof PreUpdateEvent && u.isDirty('password')))) {
+                event.getEntityAccess().setProperty('password', encodePassword(u.password))
             }
         }
     }
