@@ -22,9 +22,9 @@ include::{sourceDir}/../complete-currentuser/grails-app/conf/spring/resources.gr
 Create an Integration Test to test the custom Tenant Resolver.
 
 [source,groovy]
-.src/integration-test/groovy/demo/CurrentUserResolverSpec.groovy
+.src/integration-test/groovy/demo/CurrentUserTenantResolverSpec.groovy
 ----
-include::{sourceDir}/../complete-currentuser/src/integration-test/groovy/demo/CurrentUserResolverSpec.groovy[]
+include::{sourceDir}/../complete-currentuser/src/integration-test/groovy/demo/CurrentUserTenantResolverSpec.groovy[]
 ----
 
 Next were are going to configure our app to use this custom tenant resolver. 
