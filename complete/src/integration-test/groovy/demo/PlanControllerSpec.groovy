@@ -83,6 +83,6 @@ class PlanControllerSpec extends Specification {
         }
         userService.deleteUser(gru)
         userService.deleteUser(vector)
-        roleService.delete(VillainService.ROLE_VILLAIN)
+        roleService.deleteByAuthority(VillainService.ROLE_VILLAIN)
     }
 }
