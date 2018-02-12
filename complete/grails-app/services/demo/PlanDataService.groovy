@@ -7,7 +7,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 @Service(Plan) // <1>
 @CurrentTenant // <2>
-interface PlanService {
+interface PlanDataService {
     List<Plan> findAll()
     Plan save(String title)
     void deleteByTitle(String title)

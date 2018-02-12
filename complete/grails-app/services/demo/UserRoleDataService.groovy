@@ -6,7 +6,7 @@ import groovy.transform.CompileStatic
 
 @Service(UserRole)
 @CompileStatic
-interface UserRoleService {
+interface UserRoleDataService {
 
     @Query("""select $user.username from ${UserRole userRole} 
     inner join ${User user = userRole.user} 
@@ -17,4 +17,6 @@ interface UserRoleService {
     UserRole save(User user, Role role)
 
     void delete(User user, Role role)
+
+    void deleteByUser(User user)
 }

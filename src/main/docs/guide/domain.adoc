@@ -10,9 +10,9 @@ include::{sourceDir}/grails-app/domain/demo/Plan.groovy[]
 Create an interface `PlanService` which is a http://gorm.grails.org/latest/hibernate/manual/index.html#dataServices[GORM Data Service].
 
 [source,groovy]
-.grails-app/services/demo/PlanService.groovy
+.grails-app/services/demo/PlanDataService.groovy
 ----
-include::{sourceDir}/grails-app/services/demo/PlanService.groovy[]
+include::{sourceDir}/grails-app/services/demo/PlanDataService.groovy[]
 ----
 
 <1> Annotate it with the `grails.gorm.services.Service` annotation with the domain class the service applies to.

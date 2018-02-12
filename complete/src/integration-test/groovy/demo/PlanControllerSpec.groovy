@@ -9,10 +9,11 @@ import spock.lang.IgnoreIf
 @IgnoreIf( { System.getenv('TRAVIS') as boolean } )
 @Integration
 class PlanControllerSpec extends Specification {
-    PlanService planService
+    PlanDataService planDataService
+    UserDataService userDataService
+    UserRoleDataService userRoleDataService
     UserService userService
-    VillainService villainService
-    RoleService roleService
+    RoleDataService roleDataService
 
     RestBuilder rest = new RestBuilder()
 
@@ -33,13 +34,13 @@ class PlanControllerSpec extends Specification {
 
     def "Plans for current logged user are retrieved"() {
         given:
-        User vector = villainService.saveVillain('vector', 'secret')
-        User gru = villainService.saveVillain('gru', 'secret')
+        User vector = userService.save('vector', 'secret', 'ROLE_VILLAIN')
+        User gru = userService.save('gru', 'secret', 'ROLE_VILLAIN')
         Tenants.withId("gru") { // <1>
-            planService.save('Steal the Moon')
+            planDataService.save('Steal the Moon')
         }
         Tenants.withId("vector") {
-            planService.save('Steal a Pyramid')
+            planDataService.save('Steal a Pyramid')
         }
 
         when: 'login with the gru'
@@ -76,13 +77,15 @@ class PlanControllerSpec extends Specification {
 
         cleanup:
         Tenants.withId("gru") { // <1>
-            planService.deleteByTitle('Steal the Moon')
+            planDataService.deleteByTitle('Steal the Moon')
         }
         Tenants.withId("vector") {
-            planService.deleteByTitle('Steal the Pyramid')
+            planDataService.deleteByTitle('Steal the Pyramid')
         }
-        userService.deleteUser(gru)
-        userService.deleteUser(vector)
-        roleService.deleteByAuthority(VillainService.ROLE_VILLAIN)
+        userRoleDataService.deleteByUser(gru)
+        userDataService.delete(gru.id)
+        userRoleDataService.deleteByUser(vector)
+        userDataService.delete(vector.id)
+        roleDataService.deleteByAuthority('ROLE_VILLAIN')
     }
 }

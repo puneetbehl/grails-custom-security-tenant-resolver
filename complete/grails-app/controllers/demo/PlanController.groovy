@@ -4,9 +4,9 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 class PlanController {
-    PlanService planService
+    PlanDataService planDataService
 
     def index() {
-        [planList: planService.findAll()]
+        [planList: planDataService.findAll()]
     }
 }

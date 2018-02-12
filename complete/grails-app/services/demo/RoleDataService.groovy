@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 @Service(Role)
-interface RoleService {
+interface RoleDataService {
     void delete(Serializable id)
     void deleteByAuthority(String authority)
     Role findByAuthority(String authority)
