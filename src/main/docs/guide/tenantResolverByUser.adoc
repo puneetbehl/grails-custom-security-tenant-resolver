@@ -1,0 +1,42 @@
+Alternatively, you may want to use a combination of Stateless 
+endpoints secured by Spring Security REST and Stateful endpoints secured by Spring Security Core. You will be interested to 
+create a custom resolver by the current logged in user.
+
+[source,groovy]
+.src/main/groovy/demo/CurrentUserTenantResolver.groovy
+----
+include::{sourceDir}/../complete-currentuser/src/main/groovy/demo/CurrentUserTenantResolver.groovy[]
+----
+
+Define the Custom Tenant Resolver as a bean:
+
+[source,groovy]
+.grails-app/conf/spring/resources.groovy
+----
+include::{sourceDir}/../complete-currentuser/grails-app/conf/spring/resources.groovy[tag=currentUserTenantResolverImport]
+include::{sourceDir}/../complete-currentuser/grails-app/conf/spring/resources.groovy[tag=beans]
+include::{sourceDir}/../complete-currentuser/grails-app/conf/spring/resources.groovy[tag=currentUserTenantResolver]
+}
+----
+
+Create an Integration Test to test the custom Tenant Resolver.
+
+[source,groovy]
+.src/integration-test/groovy/demo/CurrentUserResolverSpec.groovy
+----
+include::{sourceDir}/../complete-currentuser/src/integration-test/groovy/demo/CurrentUserResolverSpec.groovy[]
+----
+
+Next were are going to configure our app to use this custom tenant resolver. 
+
+Configure Multi-Tenancy by modifying `application.yml`.
+
+[source,yml]
+.grails-app/conf/application.yml
+----
+grails
+include::{sourceDir}/../complete-currentuser/grails-app/conf/application.yml[tag=multiTenancyConfiguration]
+----
+
+<1> Define Multi-Tenancy mode as `DISCRIMINATOR`
+<2> Set the Tenant Resolver class with a custom class which you will write later in this guide.
