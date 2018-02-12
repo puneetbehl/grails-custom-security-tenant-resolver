@@ -15,4 +15,6 @@ interface UserRoleService {
     List<String> findAllUsernameByAuthority(String authority)
 
     UserRole save(User user, Role role)
+
+    void delete(User user, Role role)
 }

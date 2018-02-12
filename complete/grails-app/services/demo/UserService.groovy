@@ -7,6 +7,8 @@ import groovy.transform.CompileStatic
 @CompileStatic
 interface IUserService {
     User save(String username, String password)
+    void delete(Serializable id)
+    User findByUsername(String username)
 }
 
 @Service(User)
@@ -18,4 +20,6 @@ abstract class UserService implements IUserService {
         UserRole.where { user == userParam }.deleteAll()
         userParam.delete()
     }
+
+
 }
