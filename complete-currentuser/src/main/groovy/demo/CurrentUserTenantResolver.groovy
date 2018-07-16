@@ -1,6 +1,5 @@
 package demo
 
-import grails.core.GrailsApplication
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.userdetails.GrailsUser
 import groovy.transform.CompileDynamic
@@ -8,12 +7,14 @@ import groovy.transform.CompileStatic
 import org.grails.datastore.mapping.multitenancy.TenantResolver
 import org.grails.datastore.mapping.multitenancy.exceptions.TenantNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Lazy
 
 @CompileStatic
 class CurrentUserTenantResolver implements TenantResolver {
 
     @Autowired
-    GrailsApplication grailsApplication
+    @Lazy
+    SpringSecurityService springSecurityService
 
     @Override
     Serializable resolveTenantIdentifier() throws TenantNotFoundException {
@@ -27,12 +28,6 @@ class CurrentUserTenantResolver implements TenantResolver {
 
     @CompileDynamic
     String loggedUsername() {
-        Object bean = grailsApplication.mainContext.getBean("springSecurityService")
-        if ( !(bean instanceof SpringSecurityService) ) {
-            return null
-        }
-        SpringSecurityService springSecurityService = (SpringSecurityService) bean
-
         if ( springSecurityService.principal instanceof String ) {
             return springSecurityService.principal
         }
