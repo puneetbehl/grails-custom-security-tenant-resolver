@@ -3,6 +3,10 @@ set -e
 
 export EXIT_STATUS=0
 
+./gradlew initial:check
+./gradlew complete:check
+./gradlew complete-currentuser:check
+
 curl -O https://raw.githubusercontent.com/grails/grails-guides/master/travis/build-guide
 chmod 777 build-guide
 
