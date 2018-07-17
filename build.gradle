@@ -1,9 +1,9 @@
 plugins {
-    id 'org.asciidoctor.convert' version '1.5.3'
+    id 'org.asciidoctor.convert' version '1.5.8.1'
 }
 
 asciidoctorj {
-    version = '1.5.4'
+    version = '1.5.8'
 }
 
 apply from:"https://raw.githubusercontent.com/grails/grails-guides/master/gradle/guide-build.gradle"
