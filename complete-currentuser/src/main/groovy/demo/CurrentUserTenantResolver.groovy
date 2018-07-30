@@ -8,6 +8,7 @@ import org.grails.datastore.mapping.multitenancy.TenantResolver
 import org.grails.datastore.mapping.multitenancy.exceptions.TenantNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
+import org.springframework.security.core.userdetails.UserDetails
 
 @CompileStatic
 class CurrentUserTenantResolver implements TenantResolver {
@@ -31,8 +32,8 @@ class CurrentUserTenantResolver implements TenantResolver {
         if ( springSecurityService.principal instanceof String ) {
             return springSecurityService.principal
         }
-        if ( springSecurityService.principal instanceof GrailsUser ) {
-            return ((GrailsUser) springSecurityService.principal).username
+        if (springSecurityService.principal instanceof UserDetails) {
+            return ((UserDetails) springSecurityService.principal).username
         }
         null
     }
