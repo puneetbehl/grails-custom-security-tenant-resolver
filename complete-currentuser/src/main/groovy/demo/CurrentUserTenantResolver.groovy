@@ -12,7 +12,8 @@ import org.springframework.context.annotation.Lazy
 import org.springframework.security.core.userdetails.UserDetails
 
 @CompileStatic
-class CurrentUserTenantResolver implements TenantResolver, AllTenantsResolver {
+class CurrentUserTenantResolver implements TenantResolver, // <1>
+        AllTenantsResolver { // <2>
 
     @Autowired
     @Lazy

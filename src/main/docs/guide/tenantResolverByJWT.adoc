@@ -18,6 +18,11 @@ We can create Custom Tenant Resolver which extracts the JWT token, re-hydrates i
 include::{sourceDir}/src/main/groovy/demo/CurrentUserByJwtTenantResolver.groovy[]
 ----
 
+<1> To create your own tenant resolver implement `org.grails.datastore.mapping.multitenancy.TenantResolver`.
+<2> When using discriminator-based multi-tenancy then you may need to implement the http://gorm.grails.org/latest/hibernate/api/org/grails/datastore/mapping/multitenancy/AllTenantsResolver.html[AllTenantsResolver] interface in your TenantResolver implentation if you want to at any point iterate over all available tenants.
+
+
+
 Define the Custom Tenant Resolver as a bean:
 
 [source,groovy]
