@@ -15,8 +15,7 @@ import org.springframework.web.context.request.ServletWebRequest
 import javax.servlet.http.HttpServletRequest
 
 @CompileStatic
-class CurrentUserByJwtTenantResolver implements TenantResolver, // <1>
-        AllTenantsResolver { // <2>
+class CurrentUserByJwtTenantResolver implements AllTenantsResolver { // <1>
 
     public static final String HEADER_NAME = 'Authorization'
     public static final String HEADER_VALUE_PREFFIX = 'Bearer '

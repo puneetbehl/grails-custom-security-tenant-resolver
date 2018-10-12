@@ -8,9 +8,7 @@ create a custom resolver by the current logged in user.
 include::{sourceDir}/../complete-currentuser/src/main/groovy/demo/CurrentUserTenantResolver.groovy[]
 ----
 
-<1> To create your own tenant resolver implement `org.grails.datastore.mapping.multitenancy.TenantResolver`.
-<2> When using discriminator-based multi-tenancy then you may need to implement the http://gorm.grails.org/latest/hibernate/api/org/grails/datastore/mapping/multitenancy/AllTenantsResolver.html[AllTenantsResolver] interface in your TenantResolver implentation if you want to at any point iterate over all available tenants.
-
+<1> When using discriminator-based multi-tenancy then you may need to implement the http://gorm.grails.org/latest/hibernate/api/org/grails/datastore/mapping/multitenancy/AllTenantsResolver.html[AllTenantsResolver] interface in your TenantResolver implentation if you want to at any point iterate over all available tenants. `AllTenantsResolver extends `TenantResolver`. To create your own tenant resolver implement `org.grails.datastore.mapping.multitenancy.TenantResolver`.
 
 Define the Custom Tenant Resolver as a bean:
 

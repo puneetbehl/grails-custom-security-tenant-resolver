@@ -12,8 +12,7 @@ import org.springframework.context.annotation.Lazy
 import org.springframework.security.core.userdetails.UserDetails
 
 @CompileStatic
-class CurrentUserTenantResolver implements TenantResolver, // <1>
-        AllTenantsResolver { // <2>
+class CurrentUserTenantResolver implements AllTenantsResolver { // <1>
 
     @Autowired
     @Lazy
@@ -28,7 +27,6 @@ class CurrentUserTenantResolver implements TenantResolver, // <1>
         throw new TenantNotFoundException("Tenant could not be resolved from Spring Security Principal")
     }
 
-    @CompileDynamic
     String loggedUsername() {
         if ( springSecurityService.principal instanceof String ) {
             return springSecurityService.principal
