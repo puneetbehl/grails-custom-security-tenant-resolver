@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.test.annotation.Rollback
 import spock.lang.Specification
 
 @Integration
@@ -41,12 +42,21 @@ class CurrentUserTenantResolverSpec extends Specification {
         then:
         username == user.username
 
+        when: "verify AllTenantsResolver::resolveTenantIds"
+        Iterable<Serializable> tenantIds
+        demo.User.withNewSession {
+            tenantIds = currentUserTenantResolver.resolveTenantIds()
+        }
+
+        then:
+        tenantIds.toList().size() == 1
+        tenantIds.toList().get(0) == 'admin'
+
         cleanup:
         userRoleDataService.delete(user, role)
         roleDataService.delete(role)
         userDataService.delete(user.id)
     }
-
 
     void loginAs(String username, String authority) {
         User user = userDataService.findByUsername(username)
@@ -58,7 +68,6 @@ class CurrentUserTenantResolverSpec extends Specification {
                     authorityList)
         }
     }
-
 
 
 }

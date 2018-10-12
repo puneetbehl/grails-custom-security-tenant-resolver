@@ -1,9 +1,10 @@
 package demo
 
+import grails.gorm.DetachedCriteria
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.userdetails.GrailsUser
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
+import org.grails.datastore.mapping.multitenancy.AllTenantsResolver
 import org.grails.datastore.mapping.multitenancy.TenantResolver
 import org.grails.datastore.mapping.multitenancy.exceptions.TenantNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.Lazy
 import org.springframework.security.core.userdetails.UserDetails
 
 @CompileStatic
-class CurrentUserTenantResolver implements TenantResolver {
+class CurrentUserTenantResolver implements TenantResolver, AllTenantsResolver {
 
     @Autowired
     @Lazy
@@ -19,7 +20,6 @@ class CurrentUserTenantResolver implements TenantResolver {
 
     @Override
     Serializable resolveTenantIdentifier() throws TenantNotFoundException {
-
         String username = loggedUsername()
         if ( username ) {
             return username
@@ -36,5 +36,12 @@ class CurrentUserTenantResolver implements TenantResolver {
             return ((UserDetails) springSecurityService.principal).username
         }
         null
+    }
+
+    @Override
+    Iterable<Serializable> resolveTenantIds() {
+        new DetachedCriteria(User)
+                .distinct('username')
+                .list()
     }
 }

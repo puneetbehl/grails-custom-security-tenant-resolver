@@ -1,7 +1,9 @@
 package demo
 
+import grails.gorm.DetachedCriteria
 import grails.plugin.springsecurity.rest.token.storage.TokenStorageService
 import groovy.transform.CompileStatic
+import org.grails.datastore.mapping.multitenancy.AllTenantsResolver
 import org.grails.datastore.mapping.multitenancy.TenantResolver
 import org.grails.datastore.mapping.multitenancy.exceptions.TenantNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,7 +15,7 @@ import org.springframework.web.context.request.ServletWebRequest
 import javax.servlet.http.HttpServletRequest
 
 @CompileStatic
-class CurrentUserByJwtTenantResolver implements TenantResolver {
+class CurrentUserByJwtTenantResolver implements TenantResolver, AllTenantsResolver {
 
     public static final String HEADER_NAME = 'Authorization'
     public static final String HEADER_VALUE_PREFFIX = 'Bearer '
@@ -47,5 +49,12 @@ class CurrentUserByJwtTenantResolver implements TenantResolver {
             throw new TenantNotFoundException("Tenant could not be resolved from HTTP Header: ${headerName}")
         }
         throw new TenantNotFoundException("Tenant could not be resolved outside a web request")
+    }
+
+    @Override
+    Iterable<Serializable> resolveTenantIds() {
+        new DetachedCriteria(User)
+                .distinct('username')
+                .list()
     }
 }
