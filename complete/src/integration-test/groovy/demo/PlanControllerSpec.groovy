@@ -1,8 +1,13 @@
 package demo
 
 import grails.gorm.multitenancy.Tenants
-import grails.plugins.rest.client.RestBuilder
 import grails.testing.mixin.integration.Integration
+import grails.testing.spock.OnceBefore
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.client.HttpClient
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.IgnoreIf
 
@@ -15,19 +20,20 @@ class PlanControllerSpec extends Specification {
     UserService userService
     RoleDataService roleDataService
 
-    RestBuilder rest = new RestBuilder()
+    @Shared
+    HttpClient client
+
+    @OnceBefore
+    void init() {
+        String baseUrl = "http://localhost:$serverPort"
+        this.client  = HttpClient.create(baseUrl.toURL())
+    }
 
     String accessToken(String u, String p) {
-        def resp = rest.post("http://localhost:${serverPort}/api/login") {
-            accept('application/json')
-            contentType('application/json')
-            json {
-                username = u
-                password = p
-            }
-        }
-        if ( resp.status == 200 ) {
-            return resp.json.access_token
+        HttpRequest request = HttpRequest.POST("/api/login", [username: u, password: p])
+        HttpResponse<Map> resp = client.toBlocking().exchange(request, Map)
+        if ( resp.status == HttpStatus.OK) {
+            return resp.body().access_token
         }
         null
     }
@@ -50,14 +56,12 @@ class PlanControllerSpec extends Specification {
         gruAccessToken
 
         when:
-        def resp = rest.get("http://localhost:${serverPort}/plan") {
-            accept('application/json')
-            header('Authorization', "Bearer ${gruAccessToken}")
-        }
+        HttpRequest request = HttpRequest.GET("/plan").header('Authorization', "Bearer ${gruAccessToken}")
+        HttpResponse<Map> resp = client.toBlocking().exchange(request, Map)
 
         then:
-        resp.status == 200
-        resp.json.toString() == '[{"title":"Steal the Moon"}]'
+        resp.status == HttpStatus.OK
+        resp.body().toString() == '[{"title":"Steal the Moon"}]'
 
         when: 'login with the vector'
         String vectorAccessToken = accessToken('vector', 'secret')
@@ -66,14 +70,12 @@ class PlanControllerSpec extends Specification {
         vectorAccessToken
 
         when:
-        resp = rest.get("http://localhost:${serverPort}/plan") {
-            accept('application/json')
-            header('Authorization', "Bearer ${vectorAccessToken}")
-        }
+        request = HttpRequest.GET("/plan").header('Authorization', "Bearer ${vectorAccessToken}")
+        resp = client.toBlocking().exchange(request, Map)
 
         then:
-        resp.status == 200
-        resp.json.toString() == '[{"title":"Steal a Pyramid"}]'
+        resp.status == HttpStatus.OK
+        resp.body().toString() == '[{"title":"Steal a Pyramid"}]'
 
         cleanup:
         Tenants.withId("gru") { // <1>
