@@ -67,7 +67,7 @@ dependencies {
     runtime "javax.xml.bind:jaxb-api:2.3.0"
     testCompile "org.grails:grails-gorm-testing-support"
     testCompile "org.mockito:mockito-core"
-    testCompile "io.micronaut:micronaut-http-client:1.0.2"
+    testCompile "io.micronaut:micronaut-http-client"
     testCompile "org.grails:grails-web-testing-support"
     //tag::securityDependencies[]
     compile 'org.grails.plugins:spring-security-core:4.0.0.RC2'
