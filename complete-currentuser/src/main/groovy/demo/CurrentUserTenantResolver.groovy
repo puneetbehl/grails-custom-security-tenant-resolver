@@ -18,6 +18,10 @@ class CurrentUserTenantResolver implements AllTenantsResolver { // <1>
     @Lazy
     SpringSecurityService springSecurityService
 
+    @Autowired
+    @Lazy
+    UserDataService userDataService
+
     @Override
     Serializable resolveTenantIdentifier() throws TenantNotFoundException {
         String username = loggedUsername()
@@ -39,8 +43,6 @@ class CurrentUserTenantResolver implements AllTenantsResolver { // <1>
 
     @Override
     Iterable<Serializable> resolveTenantIds() {
-        new DetachedCriteria(User)
-                .distinct('username')
-                .list()
+        userDataService.findUserUsername() as Iterable<Serializable>
     }
 }
