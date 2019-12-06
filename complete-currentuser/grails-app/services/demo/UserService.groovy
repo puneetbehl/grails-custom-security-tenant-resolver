@@ -1,9 +1,7 @@
 package demo
 
 import grails.gorm.transactions.Transactional
-import groovy.transform.CompileStatic
 
-@CompileStatic
 class UserService {
     RoleDataService roleDataService
 
