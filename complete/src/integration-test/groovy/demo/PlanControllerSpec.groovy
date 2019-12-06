@@ -56,7 +56,7 @@ class PlanControllerSpec extends Specification {
         gruAccessToken
 
         when:
-        HttpRequest request = HttpRequest.GET("/plan").header('Authorization', "Bearer ${gruAccessToken}")
+        HttpRequest request = HttpRequest.GET("/plan").bearerAuth(gruAccessToken)
         HttpResponse<Map> resp = client.toBlocking().exchange(request, Map)
 
         then:
@@ -70,7 +70,7 @@ class PlanControllerSpec extends Specification {
         vectorAccessToken
 
         when:
-        request = HttpRequest.GET("/plan").header('Authorization', "Bearer ${vectorAccessToken}")
+        request = HttpRequest.GET("/plan").bearerAuth(vectorAccessToken)
         resp = client.toBlocking().exchange(request, Map)
 
         then:
