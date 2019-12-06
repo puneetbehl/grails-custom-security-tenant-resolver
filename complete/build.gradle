@@ -70,7 +70,7 @@ dependencies {
     testCompile "io.micronaut:micronaut-http-client:1.0.2"
     testCompile "org.grails:grails-web-testing-support"
     //tag::securityDependencies[]
-    compile 'org.grails.plugins:spring-security-core:4.0.0.BUILD-SNAPSHOT'
+    compile 'org.grails.plugins:spring-security-core:4.0.0.RC2'
     compile "org.grails.plugins:spring-security-rest:2.0.0.M2"
     //end::securityDependencies[]
 }
