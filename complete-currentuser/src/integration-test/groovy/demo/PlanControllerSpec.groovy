@@ -57,11 +57,11 @@ class PlanControllerSpec extends Specification {
 
         when:
         HttpRequest request = HttpRequest.GET("/plan").header('Authorization', "Bearer ${gruAccessToken}")
-        HttpResponse<Map> resp = client.toBlocking().exchange(request, Map)
+        HttpResponse<String> resp = client.toBlocking().exchange(request, String)
 
         then:
         resp.status == HttpStatus.OK
-        resp.body().toString() == '[{"title":"Steal the Moon"}]'
+        resp.body() == '[{"title":"Steal the Moon"}]'
 
         when: 'login with the vector'
         String vectorAccessToken = accessToken('vector', 'secret')
@@ -71,11 +71,11 @@ class PlanControllerSpec extends Specification {
 
         when:
         request = HttpRequest.GET("/plan").header('Authorization', "Bearer ${vectorAccessToken}")
-        resp = client.toBlocking().exchange(request, Map)
+        resp = client.toBlocking().exchange(request, String)
 
         then:
         resp.status == HttpStatus.OK
-        resp.body().toString() == '[{"title":"Steal a Pyramid"}]'
+        resp.body() == '[{"title":"Steal a Pyramid"}]'
 
         cleanup:
         Tenants.withId("gru") { // <1>
