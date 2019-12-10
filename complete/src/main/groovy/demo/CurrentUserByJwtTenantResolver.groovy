@@ -4,7 +4,6 @@ import grails.gorm.DetachedCriteria
 import grails.plugin.springsecurity.rest.token.storage.TokenStorageService
 import groovy.transform.CompileStatic
 import org.grails.datastore.mapping.multitenancy.AllTenantsResolver
-import org.grails.datastore.mapping.multitenancy.TenantResolver
 import org.grails.datastore.mapping.multitenancy.exceptions.TenantNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
@@ -53,8 +52,10 @@ class CurrentUserByJwtTenantResolver implements AllTenantsResolver { // <1>
 
     @Override
     Iterable<Serializable> resolveTenantIds() {
-        new DetachedCriteria(User)
-                .distinct('username')
-                .list()
+        User.withTransaction(readOnly: true) {
+            new DetachedCriteria(User)
+                    .distinct('username')
+                    .list()  as Iterable<Serializable>
+        }
     }
 }

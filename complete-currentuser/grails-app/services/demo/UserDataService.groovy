@@ -9,5 +9,4 @@ interface UserDataService {
     User save(String username, String password)
     void delete(Serializable id)
     User findByUsername(String username)
-    List<String> findUserUsername()
 }
