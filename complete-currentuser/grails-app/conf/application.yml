@@ -8,11 +8,11 @@ grails:
         multiTenancy:
             mode: DISCRIMINATOR # <1>
             tenantResolverClass: demo.CurrentUserTenantResolver # <2>
+#end::multiTenancyConfiguration[]
         reactor:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons
             events: false
-#end::multiTenancyConfiguration[]
 info:
     app:
         name: '@info.app.name@'
