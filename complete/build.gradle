@@ -36,7 +36,6 @@ configurations {
 }
 
 dependencies {
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
@@ -69,7 +68,7 @@ dependencies {
     testCompile "io.micronaut:micronaut-http-client"
     testCompile "org.grails:grails-web-testing-support"
     //tag::securityDependencies[]
-    compile 'org.grails.plugins:spring-security-core:4.0.1.BUILD-SNAPSHOT'
+    compile 'org.grails.plugins:spring-security-core:4.0.1'
     compile "org.grails.plugins:spring-security-rest:3.0.0.RC1"
     //end::securityDependencies[]
 }
